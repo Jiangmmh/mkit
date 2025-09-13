@@ -46,7 +46,7 @@ func TestFilterFunc(t *testing.T) {
 
 	for _, tc := range testsInt {
 		t.Run(tc.name, func(t *testing.T) {
-			got, err := filterFunc(tc.src, tc.filter)
+			got, err := FilterFunc(tc.src, tc.filter)
 			if tc.wantErr {
 				assert.Error(t, err)
 			} else {
@@ -80,7 +80,7 @@ func TestFilterFunc(t *testing.T) {
 
 	for _, tc := range testsString {
 		t.Run(tc.name, func(t *testing.T) {
-			got, err := filterFunc(tc.src, tc.filter)
+			got, err := FilterFunc(tc.src, tc.filter)
 			if tc.wantErr {
 				assert.Error(t, err)
 			} else {
