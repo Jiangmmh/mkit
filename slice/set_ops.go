@@ -30,13 +30,13 @@ func Equal[T comparable](a, b T) bool { return a == b }
 // 交集，(A ∩ B)，用于找出两个集合中共同的元素。
 func Intersection[T comparable](a, b []T) []T {
 	ans := []T{}
-	mp := make(map[T]struct{}) // map+空字结构体作为value，当作set使用
+	mp := make(map[T]struct{})
 	for _, v := range a {
-		mp[v] = struct{}{} // 标记a中存在的元素
+		mp[v] = struct{}{}
 	}
 
 	for _, v := range b {
-		if _, ok := mp[v]; ok { // 如果b中元素在a中存在，则加入结果集
+		if _, ok := mp[v]; ok {
 			ans = append(ans, v)
 		}
 	}
@@ -68,6 +68,8 @@ func Union[T comparable](a, b []T) []T {
 	for _, v := range b {
 		mp[v] = struct{}{} // 标记b中存在的元素
 	}
+
+	// 遍历mp，将所有元素加入结果集
 	for k := range mp {
 		ans = append(ans, k)
 	}
@@ -117,34 +119,9 @@ func Difference[T comparable](a, b []T) []T {
 
 // 对称差集，(A - B) ∪ (B - A)，用于找出两个集合之间不重叠的部分。
 func SymmetricDifference[T comparable](a, b []T) []T {
-	// 使用哈希表法实现对称差集
-	ma := make(map[T]struct{}, len(a))
-	mb := make(map[T]struct{}, len(b))
-
-	// 先将a和b中的元素都加入到map中
-	for _, v := range a {
-		ma[v] = struct{}{}
-	}
-	for _, v := range b {
-		mb[v] = struct{}{}
-	}
-
-	// 遍历a，将a中有但b中没有的元素加入到结果集中
-	// 遍历b，将b中有但a中没有的元素加入到结果集中
-	ans := make([]T, 0)
-
-	// a中有但b中没有的
-	for v := range ma {
-		if _, ok := mb[v]; !ok {
-			ans = append(ans, v)
-		}
-	}
-
-	// b中有但a中没有的
-	for v := range mb {
-		if _, ok := ma[v]; !ok {
-			ans = append(ans, v)
-		}
-	}
+	// 遍历a，将a中有，但b中没有的元素加入到结果集中
+	// 遍历b，将b中有，但a中没有的元素加入到结果集中
+	ans := Difference(a, b)
+	ans = append(ans, Difference(b, a)...)
 	return ans
 }

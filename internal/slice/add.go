@@ -2,6 +2,7 @@ package slice
 
 import "mkit/internal/errs"
 
+// 泛型切片的index处添加元素功能
 func Add[T any](src []T, elem T, index int) ([]T, error) {
 	length := len(src)
 	if index < 0 || index > length {

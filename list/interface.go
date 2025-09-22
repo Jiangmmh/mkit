@@ -14,9 +14,9 @@ type List[T any] interface {
 	// Set 重置 index 位置的值
 	// 如果下标超出范围，应该返回错误
 	Set(index int, t T) error
-	// Delete 删除目标元素的位置，并且返回该位置的值
+	// Remove 删除目标元素的位置，并且返回该位置的值
 	// 如果 index 超出下标，应该返回错误
-	Delete(index int) (T, error)
+	Remove(index int) (T, error)
 	// Len 返回长度
 	Len() int
 	// Cap 返回容量

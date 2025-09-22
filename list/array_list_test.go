@@ -87,7 +87,7 @@ func TestArrayList_Set_OutOfRange(t *testing.T) {
 func TestArrayList_Delete(t *testing.T) {
 	list := NewArrayList[int]()
 	list.Append(1, 2, 3)
-	val, err := list.Delete(1)
+	val, err := list.Remove(1)
 	if err != nil {
 		t.Fatalf("Delete 失败: %v", err)
 	}
@@ -103,7 +103,7 @@ func TestArrayList_Delete(t *testing.T) {
 
 func TestArrayList_Delete_OutOfRange(t *testing.T) {
 	list := NewArrayList[int]()
-	_, err := list.Delete(0)
+	_, err := list.Remove(0)
 	if err == nil {
 		t.Fatal("期望越界错误，但未发生")
 	}

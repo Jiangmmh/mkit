@@ -16,7 +16,7 @@ Reduce 操作
 
 // Map 对切片中的每个元素应用函数 f，返回新的切片
 // 原切片不会被修改
-func Map[T, U any](src []T, f func(T) U) []U {
+func Map[T, U any](src []T, f func(T) U) []U { // 经过map后数据类型可能从T变成U
 	if len(src) == 0 {
 		return make([]U, 0)
 	}
